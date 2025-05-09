@@ -1,0 +1,135 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .profile-card {
+        max-width: 400px;
+        margin: 40px auto;
+        background: linear-gradient(145deg, #ffffff, #f4ffff);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0, 128, 128, 0.15);
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #008080;
+        box-shadow: 0 2px 8px rgba(0, 128, 128, 0.3);
+    }
+
+    .profile-name {
+        margin-top: 10px;
+        font-size: 20px;
+        color: #008080;
+        font-family: 'Playfair Display', serif;
+        font-weight: 600;
+    }
+
+    .edit-button {
+        background: #008080;
+        color: #fff;
+        padding: 5px 14px;
+        border-radius: 18px;
+        text-decoration: none;
+        font-size: 12.5px;
+        margin-top: 8px;
+        display: inline-block;
+        transition: background 0.3s ease;
+    }
+
+    .edit-button:hover {
+        background: #006666;
+    }
+
+    .info-section {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #333;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    .info-section p {
+        margin: 3px 0;
+    }
+
+    .info-section i {
+        color: #008080;
+        margin-right: 6px;
+        width: 16px;
+        text-align: center;
+    }
+
+    .bio-box {
+        margin-top: 15px;
+        background: #f0fbfa;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: 'Georgia', serif;
+        color: #444;
+        box-shadow: inset 0 0 5px rgba(0, 128, 128, 0.05);
+    }
+
+    .bio-box h4 {
+        font-family: 'Lucida Handwriting', cursive;
+        font-size: 16px;
+        color: #006666;
+        margin-bottom: 6px;
+    }
+
+    @media (max-width: 576px) {
+        .profile-card {
+            margin: 20px 10px;
+            padding: 15px;
+        }
+
+        .profile-photo {
+            width: 80px;
+            height: 80px;
+        }
+
+        .bio-box {
+            font-size: 13.5px;
+        }
+    }
+</style>
+
+<div class="profile-card">
+    <!-- Profile Photo -->
+    {% if user.userprofile.photo %}
+        <img src="{{ user.userprofile.photo.url }}" class="profile-photo" alt="Profile Photo">
+    {% else %}
+        <img src="{% static 'css/images/defima.jpg' %}" class="profile-photo" alt="Default Profile">
+    {% endif %}
+
+    <!-- Name -->
+    <div class="profile-name">{{ user.first_name }} {{ user.last_name }}</div>
+
+    <!-- Edit Button -->
+    <a href="{% url 'edit_profile' %}" class="edit-button"><i class="fas fa-edit"></i> Edit Profile</a>
+    <!-- Change Password -->
+    <a href="{% url 'change_password' %}" class="edit-button"><i class="fas fa-edit"></i> Change Password</a>
+
+
+
+    <!-- Info -->
+    <div class="info-section mt-2">
+        <p><i class="fas fa-envelope"></i> <b>Email:</b> {{ user.email }}</p>
+        <p><i class="fas fa-phone"></i> <b>Phone:</b> {{ user.userprofile.phone_number|default:"Not Provided" }}</p>
+        <p><i class="fas fa-map-marker-alt"></i> <b>Address:</b> {{ user.userprofile.address|default:"Not Provided" }}</p>
+    </div>
+
+    <!-- Bio -->
+    <div class="bio-box">
+        <h4>About Me</h4>
+        <p>{{ user.userprofile.about_me|default:"This user has not provided any bio yet." }}</p>
+    </div>
+</div>
+{% endblock %}
