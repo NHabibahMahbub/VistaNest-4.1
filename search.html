@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VistaNest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+    <style>
+        body {
+            font-size: 14px;
+        }
+
+        /* Compact Button Styles */
+        .btn-primary-custom {
+            background-color: #5C6BC0;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 14px;
+        }
+        .btn-primary-custom:hover {
+            background-color: #3F51B5;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-info-custom {
+            background-color: #26C6DA;
+            color: white;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 13px;
+        }
+        .btn-info-custom:hover {
+            background-color: #00ACC1;
+        }
+
+        /* Compact Alert Style */
+        .no-results-alert {
+            background-color: #E1F5FE;
+            color: #0288D1;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+
+        /* Compact Card Layout */
+        .search-result-card {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        .search-result-card:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+        .card-body {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        /* Smaller image */
+        .result-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* Smaller form box */
+        .search-form {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            font-size: 13px;
+            padding: 10px 0;
+        }
+        footer a {
+            color: #ffc107;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+nav.navbar {
+    background-color: #2e3338;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
+.navbar-nav li a {
+    color: #ccc;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    padding: 6px 6px;
+    border-radius: 7px;
+}
+
+.navbar-nav li a:hover {
+    color: white;
+    background-color: #495057;
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+   <!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <i class="fas fa-home text-white"></i> VistaNest
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'search' %}">Search</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'compare_properties' %}">Compare</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'favorites' %}">Favorites</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add-platform' %}">Enlist A Nest!</a>
+            </li>
+            <li class="nav-item">
+                 <a class="nav-link" href="{% url 'user_profile' %}">My Profile</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link text-teal-300" style="font-size: 100%; font-family: Cambria;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" viewBox="6 0 18 40">
+                        <title>Log Out</title>
+                        <path d="M3 0h22c0.553 0 1 0 1 0.553l-0 3.447h-2v-2h-20v28h20v-2h2l0 3.447c0 0.553-0.447 0.553-1 0.553h-22c-0.553 0-1-0.447-1-1v-30c0-0.553 0.447-1 1-1z"></path>
+                        <path d="M21.879 21.293l1.414 1.414 6.707-6.707-6.707-6.707-1.414 1.414 4.293 4.293h-14.172v2h14.172l-4.293 4.293z"></path>
+                    </svg>
+                    Log Out
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+    <div class="container mt-5 pt-4">
+        <!-- Search Form -->
+        <div class="search-form text-center mt-3">
+            <form method="get" action="{% url 'search' %}">
+                <h5>Find Your Dream Property</h5>
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary-custom">Search</button>
+            </form>
+        </div>
+
+        <h4 class="text-center mt-4 mb-3">Search Results</h4>
+
+        {% if results %}
+            <div class="row">
+                {% for result in results %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card search-result-card">
+                            <img src="{{ result.image.url }}" alt="{{ result.title }}" class="result-image">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ result.title }}</h6>
+                                <p><strong>Type:</strong> {{ result.property_type }}</p>
+                                <p><strong>Location:</strong> {{ result.city }}, {{ result.country }}</p>
+                                <a href="{% url 'details' result.id %}" class="btn btn-info-custom">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-results-alert text-center">
+                <i class="fas fa-search fa-3x"></i>
+                <h5>No Results Found</h5>
+                <p>It looks like we couldn't find any properties matching your search.</p>
+                <ul class="list-unstyled">
+                    <li>✓ Double-check your search terms</li>
+                    <li>✓ Check for spelling errors</li>
+                </ul>
+                <a href="{% url 'home' %}" class="btn btn-primary-custom mt-2">Back to Home</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer class="text-center mt-4">
+        <p>&copy; 2025 VistaNest</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
